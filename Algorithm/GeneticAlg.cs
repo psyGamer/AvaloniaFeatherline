@@ -48,9 +48,10 @@ namespace Featherline
 
         private void GetAllStatesOfBest()
         {
-            for (int i = 0; i < sett.SurvivorCount; i++)
+            for (int i = 0; i < sett.SurvivorCount; i++) {
                 if (inds[i].fStates is null)
                     inds[i].fStates = new FeatherSim(sett).GetAllFrameData(inds[i].genes, out _, out _);
+            }
         }
 
         #region GeneratingChildren

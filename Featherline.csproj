@@ -2,9 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
+    <RuntimeIdentifier>$(RID)</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed>
+
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>feahter.ico</ApplicationIcon>
   </PropertyGroup>
@@ -13,4 +16,10 @@
     <Content Include="feahter.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="UI\**" />
+    <Compile Remove="UI\**" />
+    <EmbeddedResource Remove="UI\**" />
+    <None Remove="UI\**" />
+  </ItemGroup>
 </Project>

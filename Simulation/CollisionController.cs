@@ -112,6 +112,7 @@ public partial class FeatherSim
                 return;
             }
         }
+
         foreach (var JT in distFiltNormalJTs) {
             if (JT.Booped(fs)) {
                 stop = sett.AvoidWalls & fs.f > 10;

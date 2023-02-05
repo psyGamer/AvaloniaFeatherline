@@ -2,11 +2,13 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Featherline;
 
 public static class GAManager
 {
+    /*
     #region WindowManipulationImports
 
     [DllImport("kernel32.dll", SetLastError = true)]
@@ -26,6 +28,7 @@ public static class GAManager
     internal static extern IntPtr SetForegroundWindow(IntPtr hWnd);
 
     #endregion
+    */
 
     public const float Revolution = 360f;
 
@@ -44,14 +47,14 @@ public static class GAManager
     public static List<(AngleSet inputs, double fitness, AlgPhase source)> finalResultCandidates;
     public static AlgPhase lastPhase;
 
-    private static Control Button;
+    // private static Control Button;
 
-    public static bool RunAlgorithm(Form1 sender, Control button, bool debugFavorite)
+    public static bool RunAlgorithm(Settings settings, bool debugFavorite)
     {
-        Button = button;
+        // Button = button;
         abortAlgorithm = false;
         algTimer.Restart();
-        if (!InitializeAlgorithm())
+        if (!InitializeAlgorithm(settings))
             return false;
         algTimer.Stop();
         Console.WriteLine("Preparing the algorithm took " + algTimer.Elapsed);
@@ -76,6 +79,7 @@ public static class GAManager
             return false;
         }
 
+// return true;
         if (settings.FrameBasedOnly | !settings.TimingTestFavDirectly) {
             DoFrameGeneBasedAlgorithm();
             if (abortAlgorithm) {
@@ -106,27 +110,28 @@ public static class GAManager
             }
         }
 
-        if (!abortAlgorithm)
-            FlashWindow(consoleWindow, true);
+        // if (!abortAlgorithm)
+        //     FlashWindow(consoleWindow, true);
 
         return true;
     }
 
     #region AlgActions
 
-    private static bool InitializeAlgorithm()
+    private static bool InitializeAlgorithm(Settings settings)
     {
-        AllocConsole();
-        Console.Title = "Featherline Output Console";
-        Console.Clear();
+        //AllocConsole();
+        //Console.Title = "Featherline Output Console";
+        //Console.Clear();
 
-        consoleWindow = GetConsoleWindow();
-        ShowWindow(consoleWindow, 1);
-        SetForegroundWindow(consoleWindow);
+        // consoleWindow = GetConsoleWindow();
+        // ShowWindow(consoleWindow, 1);
+        // SetForegroundWindow(consoleWindow);
 
         // data extraction and input exception handling
         try {
-            Level.Prepare(Form1.settings);
+            Console.WriteLine("Preparing level...");
+            Level.Prepare(settings);
         }
         catch (ArgumentException e) {
             Console.WriteLine(e.Message);
@@ -143,7 +148,7 @@ public static class GAManager
             return false;
         }
 
-        settings = Form1.settings.Copy();
+        GAManager.settings = settings.Copy();
         MyParallel.Initialize(settings);
         AngleCalc.Initialize();
         return true;
@@ -188,10 +193,10 @@ public static class GAManager
                 }
             }
 
-            if (!abortAlgorithm) {
-                Button.Invoke((Action)(() => Clipboard.SetText(output)));
-                Console.WriteLine("Copied to your clipboard!");
-            }
+            // if (!abortAlgorithm) {
+            //     Button.Invoke((Action)(() => Clipboard.SetText(output)));
+            //     Console.WriteLine("Copied to your clipboard!");
+            // }
         }
 
         Console.WriteLine($"\nAlgorithm took {algTimer.Elapsed} to run.");
@@ -290,7 +295,7 @@ public static class GAManager
         if (matches.Count == 0) return null;
         return matches.SelectMany(m =>
             Enumerable.Repeat(
-                m.Groups[2].Length == 0 ? 0f : float.Parse(m.Groups[2].Value),
+                m.Groups[2].Length == 0 ? 0f : float.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture),
                 int.Parse(m.Groups[1].Value)))
             .ToAngleSet();
 

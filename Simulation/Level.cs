@@ -94,12 +94,14 @@ public static class Level
         startState = new Savestate();
 
         var pairs = Regex.Matches(src, @"(-?\d+\.?\d*), (-?\d+\.?\d*)")
-            .Select(m => new Vector2(float.Parse(m.Groups[1].Value), float.Parse(m.Groups[2].Value)))
+            .Select(m => new Vector2(
+                float.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture),
+                float.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture)))
             .ToArray();
         startState.fState.spd = pairs[1];
         startState.fState.moveCounter = pairs[2];
         startState.fState.pos = new IntVec2(pairs[0] - pairs[2]);
-        startState.fState.lerp = float.Parse(Regex.Match(src, @"Lerp: (.*)").Groups[1].Value);
+        startState.fState.lerp = float.Parse(Regex.Match(src, @"Lerp: (.*)").Groups[1].Value, CultureInfo.InvariantCulture);
 
         if (startState.fState.spd.X == 0 && startState.fState.spd.Y == 0)
             throw new ArgumentException();
