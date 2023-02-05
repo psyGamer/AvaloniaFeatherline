@@ -1,5 +1,4 @@
-﻿
-To get started with Featherline, follow these steps:
+﻿To get started with Featherline, follow these steps:
 
 1:  Click on Setup -> Auto Set Info Template when you have celeste open to automatically
     apply the custom info template for extracting game information.

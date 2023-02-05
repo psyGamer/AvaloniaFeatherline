@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
@@ -9,11 +8,11 @@
 
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>feahter.ico</ApplicationIcon>
+    <ApplicationIcon>Assets/feather.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="feahter.ico" />
+    <Content Include="Assets/feather.ico" />
   </ItemGroup>
 
   <ItemGroup>
