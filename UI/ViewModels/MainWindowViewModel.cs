@@ -1,3 +1,5 @@
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Reactive;
 using System.Reactive.Linq;
@@ -27,11 +29,13 @@ public partial class MainWindowViewModel : ReactiveObject
         private set => this.RaiseAndSetIfChanged(ref _algorithmClosing, value);
     }
 
+    private readonly ObservableAsPropertyHelper<bool> _usesCustomInfoTemplate;
+    public bool UsesCustomInfoTemplate { get => _usesCustomInfoTemplate.Value; }
+
     public Interaction<InputDialogWindowViewModel, object?> ShowInputDialog { get; }
     public ReactiveCommand<string, Unit> OpenInputDialogCommand { get; }
 
-    public const string SETTINGS_FILE_PATH = "settings.xml";
-    private FileStream settingsFile = new FileStream(SETTINGS_FILE_PATH, FileMode.OpenOrCreate);
+    private FileStream settingsFile = new FileStream(Constants.SETTINGS_FILE, FileMode.OpenOrCreate);
 
     public MainWindowViewModel()
     {
@@ -72,12 +76,55 @@ public partial class MainWindowViewModel : ReactiveObject
 
             property.SetValue(Settings, newValue);
         });
+
+        this.WhenAnyValue(x => x.Settings.OldInfoTemplate)
+            .Select(_ => Settings.OldInfoTemplate != null)
+            .ToProperty(this, x => x.UsesCustomInfoTemplate, out _usesCustomInfoTemplate);
     }
 
     public void OnClose()
     {
         SaveSettings();
         settingsFile.Dispose();
+    }
+
+    public async void AutoSetInfoTemplate()
+    {
+        try {
+            using var client = new HttpClient() { Timeout = TimeSpan.FromMilliseconds(500) };
+            var oldTemplateRequest = await client.GetAsync("http://localhost:32270/tas/custominfo");
+            var oldTemplate = Regex.Match(await oldTemplateRequest.Content.ReadAsStringAsync(), @"<pre>([\S\s]*)</pre>").Groups[1].Value;
+
+            await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, $"http://localhost:32270/tas/custominfo?template={Constants.CUSTOM_INFO_TEMPLATE}"));
+
+            if (oldTemplate != Constants.CUSTOM_INFO_TEMPLATE)
+                Settings.OldInfoTemplate = oldTemplate;
+        }
+        catch {
+            // TODO: Messageboxes
+            // var msgBoxRes = MessageBox.Show(this, "Failed to set the custom info template.\nCopy it to clipboard instead?", "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
+            // if (msgBoxRes == DialogResult.Yes)
+            //     infoTemplateToolStripMenuItem_Click(null, null);
+            Console.Error.WriteLine("Failed to set the custom info template");
+        }
+    }
+
+    public async void RestoreOriginalInfoTemplate()
+    {
+        try {
+            using var client = new HttpClient() { Timeout = TimeSpan.FromMilliseconds(500)};
+            var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, $"http://localhost:32270/tas/custominfo?template={Settings.OldInfoTemplate}"));
+
+            if (response.StatusCode == HttpStatusCode.OK)
+                Settings.OldInfoTemplate = null;
+        }
+        catch {
+            // TODO: Messageboxes
+            // var msgBoxRes = MessageBox.Show(this, "Failed to return to old template.\nCopy it to clipboard instead?", "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
+            // if (msgBoxRes == DialogResult.Yes)
+            //     Clipboard.SetText(settings.OldInfoTemplate);
+            Console.Error.WriteLine("Failed to return to old template");
+        }
     }
 
     public async void SelectInfodumpFile()

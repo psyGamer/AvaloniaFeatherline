@@ -13,7 +13,8 @@
         <!-- Menu bar -->
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Setup">
-                <MenuItem Header="Auto Set Info Template"/>
+                <MenuItem Command="{Binding AutoSetInfoTemplate}" IsEnabled="{Binding !UsesCustomInfoTemplate}" Header="Auto Set Info Template"/>
+                <MenuItem Command="{Binding RestoreOriginalInfoTemplate}" IsEnabled="{Binding  UsesCustomInfoTemplate}" Header="Restore Original Info Template"/>
                 <MenuItem Header="Copy Info Template"/>
                 <MenuItem Header="Copy Info Logging Snippet"/>
             </MenuItem>
