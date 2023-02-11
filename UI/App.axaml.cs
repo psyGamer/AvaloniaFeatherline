@@ -14,13 +14,11 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        Settings settings = new Settings();
-
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow()
             {
-                DataContext = new MainWindowViewModel(settings)
+                DataContext = new MainWindowViewModel()
             };
         }
 
