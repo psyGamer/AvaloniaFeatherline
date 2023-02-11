@@ -3,6 +3,30 @@
              x:Class="Featherline.UI.App">
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
+
+        <!-- Green Button -->
+        <Style Selector="Button.btn-green">
+            <Setter Property="Background" Value="#5FAB32"/>
+        </Style>
+        <Style Selector="Button.btn-green:pointerover/template/ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#72C741"/>
+        </Style>
+        <Style Selector="Button.btn-green:pressed/template/ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#8BE951"/>
+        </Style>
+
+        <!-- Red Button -->
+        <Style Selector="Button.btn-red">
+            <Setter Property="Background" Value="#D33823"/>
+        </Style>
+        <Style Selector="Button.btn-red:pointerover/template/ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#DD4936"/>
+        </Style>
+        <Style Selector="Button.btn-red:pressed/template/ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="#ED7060"/>
+        </Style>
+
+        <!-- Blue Button -->
     </Application.Styles>
     <!-- <Application.Resources>
         <SolidColorBrush x:Key="SystemControlBackgroundBaseHighBrush" Color="#2cff2c"/>

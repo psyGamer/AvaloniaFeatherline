@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Featherline.UI.MainWindow"
+        WindowStartupLocation="CenterScreen"
         MinWidth="600" MinHeight="400"
         Width="850" Height="500"
         Title="Featherline">
@@ -18,10 +19,10 @@
             </MenuItem>
             <MenuItem Header="Settings">
                 <MenuItem Header="Genetic Algorithm">
-                    <MenuItem Header="{Binding Settings.Population, StringFormat=Population: {0}}" />
-                    <MenuItem Header="{Binding Settings.SurvivorCount, StringFormat=Generation Survivors: {0}}" />
-                    <MenuItem Header="{Binding Settings.MutationMagnitude, StringFormat=Mutation Magnitude: {0:F2}}" />
-                    <MenuItem Header="{Binding Settings.MaxMutChangeCount, StringFormat=Max Mutation Count: {0}}" />
+                    <MenuItem Command="{Binding OpenInputDialogCommand}" CommandParameter="Population 2 999999" Header="{Binding Settings.Population, StringFormat=Population: {0}}" />
+                    <MenuItem Command="{Binding OpenInputDialogCommand}" CommandParameter="SurvivorCount 1 999998" Header="{Binding Settings.SurvivorCount, StringFormat=Generation Survivors: {0}}" />
+                    <MenuItem Command="{Binding OpenInputDialogCommand}" CommandParameter="MutationMagnitude 0 180" Header="{Binding Settings.MutationMagnitude, StringFormat=Mutation Magnitude: {0:F2}}" />
+                    <MenuItem Command="{Binding OpenInputDialogCommand}" CommandParameter="MaxMutChangeCount 1 999999" Header="{Binding Settings.MaxMutChangeCount, StringFormat=Max Mutation Count: {0}}" />
                 </MenuItem>
                 <MenuItem Header="Computation">
                     <MenuItem Command="{Binding ToggleBoolSetting}" CommandParameter="IgnoreHazards" Header="Don't Compute Hazards">
@@ -47,7 +48,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{Binding Settings.MaxThreadCount, StringFormat=Simulation Thread Count: {0}}" />
+                <MenuItem Command="{Binding OpenInputDialogCommand}" CommandParameter="MaxThreadCount -1 100" Header="{Binding Settings.MaxThreadCount, StringFormat=Simulation Thread Count: {0}}" />
             </MenuItem>
             <MenuItem Header="Help" />
             <MenuItem Header="Debug">
@@ -68,27 +69,6 @@
         <Grid RowDefinitions="50,*" ColumnDefinitions="*,200">
             <!-- Tool bar -->
             <Grid ColumnDefinitions="Auto,Auto,*" Grid.Row="0" Grid.Column="0">
-                <Grid.Styles>
-                    <Style Selector="Button.btn-green">
-                        <Setter Property="Background" Value="#5FAB32"/>
-                    </Style>
-                    <Style Selector="Button.btn-green:pointerover/template/ContentPresenter#PART_ContentPresenter">
-                        <Setter Property="Background" Value="#72C741"/>
-                    </Style>
-                    <Style Selector="Button.btn-green:pressed/template/ContentPresenter#PART_ContentPresenter">
-                        <Setter Property="Background" Value="#8BE951"/>
-                    </Style>
-                    <Style Selector="Button.btn-red">
-                        <Setter Property="Background" Value="#D33823"/>
-                    </Style>
-                    <Style Selector="Button.btn-red:pointerover/template/ContentPresenter#PART_ContentPresenter">
-                        <Setter Property="Background" Value="#DD4936"/>
-                    </Style>
-                    <Style Selector="Button.btn-red:pressed/template/ContentPresenter#PART_ContentPresenter">
-                        <Setter Property="Background" Value="#ED7060"/>
-                    </Style>
-                </Grid.Styles>
-
                 <Button Command="{Binding ToggleAlgorithm}" 
                         Width="150" HorizontalAlignment="Stretch" 
                         Grid.Column="0" Margin="10" 
