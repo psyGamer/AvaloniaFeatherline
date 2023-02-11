@@ -3,6 +3,8 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Xml.Serialization;
 using ReactiveUI;
+using Avalonia;
+using Featherline.UI.Services;
 
 namespace Featherline.UI.ViewModels;
 
@@ -76,6 +78,13 @@ public partial class MainWindowViewModel : ReactiveObject
     {
         SaveSettings();
         settingsFile.Dispose();
+    }
+
+    public async void SelectInfodumpFile()
+    {
+        var path = await DialogService.ShowOpenFileDialogAsync("Select infodump.txt", "Info Dump (infodump.txt)", "txt");
+        if (path != null)
+            Settings.InfoFile = path;
     }
 
     public void ToggleAlgorithm()

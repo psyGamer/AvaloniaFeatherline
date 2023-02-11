@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Featherline.UI.ViewModels;
+using Featherline.UI.Services;
 
 namespace Featherline.UI;
 
