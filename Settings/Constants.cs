@@ -4,6 +4,8 @@ public static class Constants
 {
     public const string SETTINGS_FILE = "settings.xml";
 
+    public const string INFO_LOGGING_SNIPPET = "StartExportGameInfo infodump.txt\n   1\nFinishExportGameInfo";
+
     public const string CUSTOM_INFO_TEMPLATE =
         "PosRemainder: {Player.PositionRemainder} " +
         "Lerp: {Player.starFlySpeedLerp} " +
@@ -40,8 +42,8 @@ public static class Constants
         "Bounds: {Level.Bounds} " +
         "Solids: {Level.Session.LevelData.Solids}";
 
-    public const string HELP_TEXT = @"
-To get started with Featherline, follow these steps:
+    public const string HELP_TEXT = 
+@"To get started with Featherline, follow these steps:
 
 1:  Click on Setup -> Auto Set Info Template when you have celeste open to automatically
     apply the custom info template for extracting game information.

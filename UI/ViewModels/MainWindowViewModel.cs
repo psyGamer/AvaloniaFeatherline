@@ -88,6 +88,16 @@ public partial class MainWindowViewModel : ReactiveObject
         settingsFile.Dispose();
     }
 
+    public async void CopyInfoTemplate()
+    {
+        await Application.Current!.Clipboard!.SetTextAsync(Constants.CUSTOM_INFO_TEMPLATE);
+    }
+
+    public async void CopyInfoLoggingSnippet()
+    {
+        await Application.Current!.Clipboard!.SetTextAsync(Constants.INFO_LOGGING_SNIPPET);
+    }
+
     public async void AutoSetInfoTemplate()
     {
         try {
