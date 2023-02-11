@@ -1,6 +1,8 @@
+using System.Reflection;
 using Avalonia.Controls;
+using Featherline.UI.ViewModels;
 
-namespace Featherline;
+namespace Featherline.UI;
 
 public partial class MainWindow : Window
 {

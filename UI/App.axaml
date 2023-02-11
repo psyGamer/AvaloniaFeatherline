@@ -1,7 +1,13 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Featherline.App">
+             x:Class="Featherline.UI.App">
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
+        <FluentTheme Mode="Dark"/>
     </Application.Styles>
+    <!-- <Application.Resources>
+        <SolidColorBrush x:Key="SystemControlBackgroundBaseHighBrush" Color="#2cff2c"/>
+        <SolidColorBrush x:Key="SystemControlBackgroundAltHighBrush" Color="#2c2c2c"/>
+        <SolidColorBrush x:Key="SystemControlForegroundBaseHighBrush" Color="#00ff00"/>
+        <SolidColorBrush x:Key="SystemControlBackgroundAltMediumLowBrush" Color="#ff2c2c"/>
+    </Application.Resources> -->
 </Application>

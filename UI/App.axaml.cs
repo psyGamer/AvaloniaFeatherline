@@ -1,8 +1,9 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Featherline.UI.ViewModels;
 
-namespace Featherline;
+namespace Featherline.UI;
 
 public partial class App : Application
 {
@@ -13,9 +14,14 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        Settings settings = new Settings();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow();
+            desktop.MainWindow = new MainWindow()
+            {
+                DataContext = new MainWindowViewModel(settings)
+            };
         }
 
         base.OnFrameworkInitializationCompleted();

@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <RuntimeIdentifier>$(RID)</RuntimeIdentifier>
     <SelfContained>true</SelfContained>
-    <PublishTrimmed>true</PublishTrimmed>
+    <!-- <PublishTrimmed>true</PublishTrimmed> -->
 
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -28,6 +28,8 @@
     <PackageReference Include="Avalonia" Version="0.10.18" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.18" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
+    <PackageReference Include="ReactiveUI" Version="18.4.20" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
   </ItemGroup>
 

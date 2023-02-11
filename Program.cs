@@ -1,5 +1,6 @@
-using System;
 using Avalonia;
+using Avalonia.ReactiveUI;
+using Featherline.UI;
 
 namespace Featherline
 {
@@ -14,6 +15,7 @@ namespace Featherline
         {
             BuildAvaloniaApp()
                 .StartWithClassicDesktopLifetime(args);
+            
             // Settings s = new Settings();
             // s.InfoFile = "/media/Storage/SteamLibrary/steamapps/common/Celeste/infodump.txt";
             // s.Checkpoints = new string[] {
@@ -40,6 +42,7 @@ namespace Featherline
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
+                .UseReactiveUI()
                 .UsePlatformDetect()
                 .LogToTrace();
     }
