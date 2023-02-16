@@ -8,12 +8,12 @@
 
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>Assets/feather.ico</ApplicationIcon>
+    <ApplicationIcon>UI/Featherline.ico</ApplicationIcon>
     <ApplicationManifest>UI/app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Assets/feather.ico" />
+    <AvaloniaResource Include="UI/Featherline.ico"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -31,12 +31,5 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
     <PackageReference Include="ReactiveUI" Version="18.4.20" />
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="UIo\**" />
-    <Compile Remove="UIo\**" />
-    <EmbeddedResource Remove="UIo\**" />
-    <None Remove="UIo\**" />
   </ItemGroup>
 </Project>
