@@ -1,0 +1,180 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="600"
+        x:Class="Featherline.UI.Views.HelpWindow"
+        WindowStartupLocation="CenterOwner"
+        Width="900" Height="600"
+        MinWidth="500" MinHeight="350"
+        Title="Getting started">
+    <!-- NOTE: This window should be centered, which works on 0.10.0 but not on 0.10.18 -->
+
+    <Window.Styles>
+        <Style Selector="TextBlock.h1">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="600"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 15 0 20"/>
+        </Style>
+
+        <Style Selector="TextBlock.code">
+            <Setter Property="FontFamily" Value="20"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 5 0 10"/>
+        </Style>
+    </Window.Styles>
+
+    <ScrollViewer>
+    <StackPanel Margin="10">
+        <TextBlock Classes="h1">Getting started with Featherline</TextBlock>
+        <Grid Margin="0 0 25 0" ColumnDefinitions="Auto,*" RowDefinitions="*,*,*,*,*">
+            <Grid.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="LineHeight" Value="22"/>
+                </Style>
+                <Style Selector="TextBlock.num">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Styles>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Classes="num">1.</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap">Click on Setup -> Auto Set Info Template when you have Celeste open to automatically apply the custom info template for extracting game information. If this doesn't work, click on Setup -> Info Template to copy the template to your clipboard then right click on the info panel of celeste studio and click 'Set Custom Info Template From Clipboard'. The automatic way only works if you had debug mode enabled when launching celeste.</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Classes="num">2.</TextBlock>
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <TextBlock TextWrapping="Wrap">Click on Setup -> Copy Info Logging Snippet to copy the info file creation script to your clipboard, then paste it into your TAS. Then make sure that the last frame before the simulated inputs is in between the commands, like in the example below.</TextBlock>
+
+                <!-- The 0x0200f Unicode character is used to prevent removing leading spaces -->
+                <Border HorizontalAlignment="Left" Margin="0 10" Padding="5" BorderThickness="1" Background="{StaticResource SystemChromeLowColor}"  CornerRadius="10">
+                    <TextBlock FontFamily="Jetbrains Mono">
+&#xA0;  13,R,U,X
+  26
+StartExportGameInfo infodump.txt
+   1,R,U
+FinishExportGameInfo
+                    </TextBlock>
+                </Border>
+                <TextBlock TextWrapping="Wrap">Then run the TAS over those commands to create/update infodump.txt in your Celeste folder. This same method works even if the start frame is in an already going feather. Enabling custom info in CelesteTAS is not needed. It works regardless. The 1,R,U input is for a featherboost. If you don't know what that is, you can ask in #tas_general on the Celeste Discord.</TextBlock>
+            </StackPanel>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Classes="num">3.</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">Click on the Select Information Source File button and select the infodump.txt file in your Celeste folder.</TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Classes="num">4.</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap">Define a checkpoint at every turn or branching point of the path you want to TAS. Checkpoints are further explained later.</TextBlock>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Classes="num">5.</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" TextWrapping="Wrap">Click the Run Algorithm button.</TextBlock>
+        </Grid>
+
+        <TextBlock Classes="h1">Checkpoints</TextBlock>
+        <Grid Margin="0 0 25 0" ColumnDefinitions="Auto,*" RowDefinitions="*,*,*,*">
+            <Grid.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="LineHeight" Value="22"/>
+                </Style>
+                <Style Selector="TextBlock.dash">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Styles>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap">To define a checkpoint, hold your info HUD hotkey and drag while holding right click to draw a rectangle hitbox. Doing that will copy the selected area to your clipboard, where you can paste it to a line on the checkpoints text box.</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap">Checkpoint collision is based on your hurtbox. To define a touch switch or feather as a checkpoint, select an area that perfectly overlaps with its hitbox. Remember to use the pink, bigger hitbox for touch switches.</TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">The genetic algorithm primarily flies directly towards the next checkpoint. If the next checkpoint is behind a wall of spinners, it will simply fly towards that wall of spinners and try to get as close to the checkpoint as it can that way. That means you should define a checkpoint at every major turn so it knows where to go. If the algorithm messes up at any of the points where progress is reversed, it has to be able to fix itself by simply attempting to fly toward the next checkpoint the entire time.</TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap">Making checkpoints really small is not recommended. Making them big does not make the result worse and it only cares about whether you touched the checkpoint or not. When the algorithm at some moment has not reached a checkpoint, it tries to get to it by aiming for its center (the final checkpoint is an exception to this). You can use this to guide the algorithm better by making the checkpoints bigger.</TextBlock>
+        </Grid>
+
+        <TextBlock Classes="h1">Custom Hitboxes</TextBlock>
+        <Grid Margin="0 0 25 0" ColumnDefinitions="Auto,*" RowDefinitions="*,*,*,*">
+            <Grid.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="LineHeight" Value="22"/>
+                </Style>
+                <Style Selector="TextBlock.dash">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Styles>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap">Defined the same way as checkpoints but in the text box on the right.</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap">A defined hitbox is a killbox by default, based on the green hurtbox.</TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">To define a collider (based on the red collision box) instead of a killbox, place 'c' after the definition.
+Example: '218, -104, 234, -72 c'</TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap">Fully static tile entities will automatically be added as colliders behind the scenes, but kevins, falling blocks and others that have the potential to move in some way, you will have to define manually.</TextBlock>
+        </Grid>
+
+        <TextBlock Classes="h1">Algorithm Facts</TextBlock>
+        <Grid Margin="0 0 25 0" ColumnDefinitions="Auto,*" RowDefinitions="*,*">
+            <Grid.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="LineHeight" Value="22"/>
+                </Style>
+                <Style Selector="TextBlock.dash">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Styles>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap">Sometimes the final results of the algorithm will die by an extremely small amount, like 0.0002 pixels. When this happens, the solution is to change one of the angles before that point by 0.001 manually or by a little bit more if needed.</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap">Each checkpoint collected adds 10000 to fitness. You can use that knowledge to track how the algorithm is doing.</TextBlock>
+        </Grid>
+
+        <TextBlock Classes="h1">Supported Gameplay Mechanics</TextBlock>
+        <Grid Margin="0 0 25 0" ColumnDefinitions="Auto,*" RowDefinitions="*,*,*,*,*">
+            <Grid.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="LineHeight" Value="22"/>
+                </Style>
+                <Style Selector="TextBlock.dash">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Styles>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap">Anything with a static spinner hitbox, spikes and lightning</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"> Wind and wind triggers</TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">Dodging or bouncing off walls. Tile entities explained in Custom Hitboxes section.</TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap">Jumpthroughs</TextBlock>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" Classes="dash">-</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" TextWrapping="Wrap">Correct physics with room bounds</TextBlock>
+        </Grid>
+
+        <TextBlock Margin="10 20 10 0" TextWrapping="Wrap">If you have questions that aren't explained anywhere in this guide, feel free to ping TheRoboMan#5720 on the Celeste Discord.</TextBlock>
+        <TextBlock Margin="10 5 10 0" TextWrapping="Wrap">If you experience any issues with the user-interface or other things about this version specifically, ping psyGamer#8442 on the Celeste Discord.</TextBlock>
+    </StackPanel>
+    </ScrollViewer>
+</Window>

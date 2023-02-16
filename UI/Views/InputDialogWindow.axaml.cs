@@ -12,8 +12,8 @@ public partial class InputDialogWindow : ReactiveWindow<InputDialogWindowViewMod
 
         this.WhenActivated(d => 
         {
-            d(ViewModel.ConfirmCommand.Subscribe(this.Close));
-            d(ViewModel.CancelCommand.Subscribe(this.Close));
+            d(ViewModel!.ConfirmCommand.Subscribe(this.Close));
+            d(ViewModel!.CancelCommand.Subscribe(this.Close));
         });
     }
 }

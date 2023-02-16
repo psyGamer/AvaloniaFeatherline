@@ -35,6 +35,9 @@ public partial class MainWindowViewModel : ReactiveObject
     public Interaction<InputDialogWindowViewModel, object?> ShowInputDialog { get; }
     public ReactiveCommand<string, Unit> OpenInputDialogCommand { get; }
 
+    public Interaction<Unit, Unit> ShowHelpDialog { get; }
+    public ReactiveCommand<Unit, Unit> OpenHelpDialogCommand { get; }
+
     private FileStream settingsFile = new FileStream(Constants.SETTINGS_FILE, FileMode.OpenOrCreate);
 
     public MainWindowViewModel()
@@ -75,6 +78,12 @@ public partial class MainWindowViewModel : ReactiveObject
             }
 
             property.SetValue(Settings, newValue);
+        });
+
+        this.ShowHelpDialog = new Interaction<Unit, Unit>();
+        this.OpenHelpDialogCommand = ReactiveCommand.CreateFromTask(async () =>
+        {
+            await ShowHelpDialog.Handle(Unit.Default);
         });
 
         this.WhenAnyValue(x => x.Settings.OldInfoTemplate)

@@ -1,4 +1,4 @@
-using Avalonia.Controls;
+using System.Reactive;
 using Avalonia.ReactiveUI;
 using ReactiveUI;
 using Featherline.UI.Views;
@@ -12,8 +12,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         InitializeComponent();
 
-        this.WhenActivated(d => d(ViewModel.ShowInputDialog.RegisterHandler(DoShowInputDialogAsync)));
-        this.Closing += (_, _) => ViewModel.OnClose();
+        this.WhenActivated(d => 
+        {
+            d(ViewModel!.ShowInputDialog.RegisterHandler(DoShowInputDialogAsync));
+            d(ViewModel!.ShowHelpDialog.RegisterHandler(DoShowHelpDialogAsync));
+        });
+        this.Closing += (_, _) => ViewModel!.OnClose();
     }
 
     private async Task DoShowInputDialogAsync(InteractionContext<InputDialogWindowViewModel, object?> interaction)
@@ -23,5 +27,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 
         var result = await dialog.ShowDialog<object?>(this);
         interaction.SetOutput(result);
+    }
+
+    private async Task DoShowHelpDialogAsync(InteractionContext<Unit, Unit> interaction)
+    {
+        var dialog = new HelpWindow();
+        await dialog.ShowDialog<object?>(this);
+        interaction.SetOutput(Unit.Default);
     }
 }

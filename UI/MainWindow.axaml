@@ -51,7 +51,7 @@
                 </MenuItem>
                 <MenuItem Command="{Binding OpenInputDialogCommand}" CommandParameter="MaxThreadCount -1 100" Header="{Binding Settings.MaxThreadCount, StringFormat=Simulation Thread Count: {0}}" />
             </MenuItem>
-            <MenuItem Header="Help" />
+            <MenuItem Header="Help" Command="{Binding OpenHelpDialogCommand}" />
             <MenuItem Header="Debug">
                 <!-- <MenuItem Command="{Binding ToggleBoolSetting}" CommandParameter="LogResults" Header="Log flight of initial inputs" >
                     <MenuItem.Icon>
@@ -132,9 +132,9 @@
                 <TextBlock Grid.Row="0" Grid.Column="0">Feather Checkpoints</TextBlock>
                 <TextBox Text="{Binding Settings.Checkpoints}" AcceptsReturn="True" Grid.Row="1" Grid.Column="0"></TextBox>
                 <TextBlock Grid.Row="0" Grid.Column="1">(Optional) Initial Inputs</TextBlock>
-                <TextBox Text="{Binding Settings.Favorite}" Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding Settings.Favorite}" AcceptsReturn="true" Grid.Row="1" Grid.Column="1"></TextBox>
                 <TextBlock Grid.Row="0" Grid.Column="2">Custom Killboxes and Colliders</TextBlock>
-                <TextBox Text="{Binding Settings.ManualHitboxes}" Grid.Row="1" Grid.Column="2"></TextBox>
+                <TextBox Text="{Binding Settings.ManualHitboxes}" AcceptsReturn="true" Grid.Row="1" Grid.Column="2"></TextBox>
             </Grid>
         </Grid>
 
