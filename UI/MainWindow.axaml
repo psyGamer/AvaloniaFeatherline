@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="850" d:DesignHeight="500"
         x:Class="Featherline.UI.MainWindow"
+        Icon="/UI/Featherline.ico"
         WindowStartupLocation="CenterScreen"
         MinWidth="850" MinHeight="500"
         Width="850" Height="500"
