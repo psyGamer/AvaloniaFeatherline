@@ -2,14 +2,23 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RuntimeIdentifier>$(RID)</RuntimeIdentifier>
-    <SelfContained>true</SelfContained>
-    <!-- <PublishTrimmed>true</PublishTrimmed> -->
 
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>UI/Featherline.ico</ApplicationIcon>
     <ApplicationManifest>UI/app.manifest</ApplicationManifest>
+
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>$(RID)</RuntimeIdentifier>
+    <PublishSingleFile>True</PublishSingleFile>
+    <PublishTrimmed>True</PublishTrimmed>
+    <TrimMode>CopyUsed</TrimMode>
+    <EnableCompressionInSingleFile>True</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
