@@ -1,6 +1,7 @@
-# featherline
-algorithm for analog feather movement in Celeste
+# AvaloniaFeatherline
 
-created by TheRoboMan, tntfalle, Kataiser, mikachelya
+A genetic algorithm for TASing analog feather movement in Celeste, which uses AvaloniaUI.
 
-special thanks to TASMalleo
+# Credits
+
+[Featherline](https://github.com/ella-TAS/featherline), the original Windows Forms application, created by: TheRoboMan, EllaTAS, Kataiser and mikachelya.
