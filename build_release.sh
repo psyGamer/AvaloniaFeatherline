@@ -4,7 +4,8 @@ rm -rd bin/Release
 
 dotnet publish -p:RID=win-x64 -c Release
 dotnet publish -p:RID=osx-x64 -c Release
-dotnet publish -p:RID=linux-x64 -c Release
+# PublishTrimmed has only been tested on Liunx
+dotnet publish -p:RID=linux-x64 -c Release -p:PublishTrimmed="True"
 
 pushd bin/Release/net6.0
 
